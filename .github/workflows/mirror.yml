@@ -11,24 +11,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: '0' 
+      #   with:
+      #     fetch-depth: '0' 
 
-      - name: Git Setup
-        run: |
-          git config --global user.name '${{ secrets.GIT_USER_NAME }}'
-          git config --global user.email '${{ secrets.GIT_USER_EMAIL }}'
+      # - name: Git Setup
+      #   run: |
+      #     git config --global user.name '${{ secrets.GIT_USER_NAME }}'
+      #     git config --global user.email '${{ secrets.GIT_USER_EMAIL }}'
 
-      - name: Add Mirror Remote Repository
-        run: |
-          git remote remove mirror-repo || true 
-          git remote add mirror-repo ${{ secrets.MIRROR_URL }}
-          git fetch mirror-repo
+      # - name: Add Mirror Remote Repository
+      #   run: |
+      #     git remote remove mirror-repo || true 
+      #     git remote add mirror-repo ${{ secrets.MIRROR_URL }}
+      #     git fetch mirror-repo
 
       - name: List Remote
         run: git remote -v
 
-      - name: Push to Mirror
-        run: git push --mirror mirror-repo
+      # - name: Push to Mirror
+      #   run: git push --mirror mirror-repo
 
         
