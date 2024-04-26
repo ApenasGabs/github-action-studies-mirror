@@ -3,14 +3,16 @@ name: Mirror after merge
 on:
   push:
     branches:
-      - main   
+      - main
 
 jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0' 
 
       - name: Git Setup
         run: |
@@ -18,7 +20,9 @@ jobs:
           git config --global user.email '${{ secrets.GIT_USER_EMAIL }}'
 
       - name: Add Mirror Remote Repository
-        run: git remote add mirror-repo  https://${{ secrets.MIRROR_TOKEN }}@${{ secrets.MIRROR_URL }}
+        run: |
+          git remote remove mirror-repo || true 
+          git remote add mirror-repo https://${{ secrets.MIRROR_TOKEN }}@${{ secrets.MIRROR_URL }}
 
       - name: Push to Mirror
         run: git push --mirror mirror-repo
