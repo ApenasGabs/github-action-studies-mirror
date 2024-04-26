@@ -19,16 +19,16 @@ jobs:
           git config --global user.name '${{ secrets.GIT_USER_NAME }}'
           git config --global user.email '${{ secrets.GIT_USER_EMAIL }}'
 
-      # - name: Add Mirror Remote Repository
-      #   run: |
-      #     git remote remove mirror-repo || true 
-      #     git remote add mirror-repo https://${{ secrets.MIRROR_TOKEN }}@${{ secrets.MIRROR_URL }}
-
-      - name: Push to Mirror
-        run: git push --mirror mirror-repo
+      - name: Add Mirror Remote Repository
+        run: |
+          git remote remove mirror-repo || true 
+          git remote add mirror-repo https://${{ secrets.MIRROR_TOKEN }}@${{ secrets.MIRROR_URL }}
+          git fetch mirror-repo
 
       - name: List Remote
         run: git remote -v
 
+      - name: Push to Mirror
+        run: git push --mirror mirror-repo
 
         
